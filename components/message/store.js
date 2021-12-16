@@ -1,14 +1,7 @@
 const db = require('mongoose');
 const Model = require('./model');
-//mongodb+srv://diobando:<password>@cluster0.l6dw3.mongodb.net/telegram
-//"mongodb+srv://diobando:123Labomba@cluster0.l6dw3.mongodb.net/co2?retryWrites=true&w=majority"
 //para el mock
 //const list = [];
-db.Promise = global.Promise;
-db.connect('mongodb+srv://diobando:123Labomba@cluster0.l6dw3.mongodb.net/telegram', {
-    useNewUrlParser: true,
-})
-console.log('[db] Conectada con exito');
 
 function addMessage(message){
     //list.push(message);
@@ -18,12 +11,22 @@ function addMessage(message){
 
 async function getMessage(filterUser){
     //return list;
-    let filter = {};
-    if(filterUser !== null){
-        filter = {user: filterUser}
-    }
-    const messages = await Model.find(filter);
-    return messages;
+    return new Promise((resolve, reject) => {
+        let filter = {};
+        if(filterUser !== null){
+            filter = {user: filterUser}
+        }
+        const messages = Model.find(filter)
+            .populate('user')
+            .exec((error, populated) => {
+                if(error){
+                    reject(error);
+                    return false;
+                }
+                resolve(populated);
+            });
+    })
+
 }
 
 async function updateText(id, message){
@@ -35,10 +38,17 @@ async function updateText(id, message){
     return newMessage;
 }
 
+function removeMessage(id){
+    return Model.deleteOne({
+        _id: id
+    })
+}
+
 module.exports = {
     add: addMessage,
     list: getMessage,
-    updateText: updateText
+    updateText: updateText,
+    remove: removeMessage
     //get
     //update
     //delete
