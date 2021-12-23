@@ -1,4 +1,4 @@
-const db = require('mongoose');
+//const db = require('mongoose');
 const Model = require('./model');
 //para el mock
 //const list = [];
