@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const db = require('./db');
 const router = require('./network/routes');
 
-db('mongodb+srv://diobando:123Labomba@cluster0.l6dw3.mongodb.net/telegram');
+
 
 var app = express();
 app.use(bodyParser.json());
