@@ -15,15 +15,9 @@ function listUsers(){
     return store.list();
 }
 
-function deleteUser(id){
-    const identificador = {
-        id,
-    }
-    return store.delete(identificador);
-}
+
 
 module.exports = {
     addUser,
     listUsers,
-    deleteUser,
 }

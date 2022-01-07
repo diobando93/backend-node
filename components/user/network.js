@@ -23,14 +23,6 @@ router.get('/', function(req, res){
         })
 })
 
-router.delete('/:id', function(req, res){
-    controller.deleteUser(req.params.id)
-        .then(data => {
-            response.success(req, res, users, 200);
-        })
-        .catch(err => {
-            response.error(req, res, 'Internal error', 500, err);
-        })
-})
+
 
 module.exports = router;

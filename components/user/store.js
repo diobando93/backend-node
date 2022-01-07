@@ -9,12 +9,9 @@ function listUsers(){
     return Model.find();
 }
 
-function deleteUser(id){
-    return Model.deleteOne({_id: id});
-}
+
 
 module.exports = {
     add: addUser,
     list: listUsers,
-    delete: deleteUser
 }
